@@ -1,34 +1,34 @@
-
 import os,time
+print("✔ TO DO LIST MANAGER ✔😊")
 
-print("To Do List Manager:")
-mylist = []
+my_list = []
 
 def printlist():
-  print()
-  for item in mylist:
-    print(item)
-  print()
+    print()
+    for item in my_list:
+        print(item)
+    print()
 
 while True:
-  user_input = input("Do you want to view, add, edit, or remove or exit an item from the to do list? : ")
-  if user_input == "view":
-    print(mylist)
-  elif user_input == "add":
-    ad_list = input("What do you want to add : ")
-    mylist.append(ad_list)
-  elif user_input == "remove":
-    re_list = input("What do you want to remove? : ")
-    if re_list in mylist:
-      kali = input("Are you sure you want to remove this? : ")
-      if kali == "yes":
-        mylist.remove(re_list)
-      else:
-        os.system("clear")
-  elif user_input == "exit":
-    break
+    user_input = str(input("DO you want to view,add, or remove or exit and from the to do list :  "))
 
-  else:
-    print("invalid")
-    break
-
+    if user_input == "add":
+        add = input("what are you going to add ? :  ")
+        my_list.append(add)
+    elif user_input == "remove":
+        remove = str(input("which one are you going to remove : "))
+        if remove in my_list:
+            my_list.remove(remove)
+        else:
+            os.system("clear")
+    elif user_input == "view":
+        print(my_list)
+    elif user_input == "exit":
+        break
+    
+    else:
+        print("invalid")
+        break
+    
+printlist()       
+        
